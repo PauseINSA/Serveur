@@ -32,13 +32,13 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 // Launch
-db.sequelize.sync({force: true}).complete(function(err){
+db.sequelize.sync().complete(function(err){
     if(err)
     {
         throw err;
     } else {
         http.createServer(app).listen(app.get('port'), function(){
           console.log('Express server listening on port ' + app.get('port'));
-        });   
+        });
     }
 });
