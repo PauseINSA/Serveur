@@ -1,14 +1,14 @@
 
 // Modules
 var express = require('express');
-var http = require('http');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
 var path = require('path');
-var io = require('socket.io');
 var routes = require('./routes');
+var handlers = require('./routes/io.handlers');
 var settings = require('./config/settings');
 var db = require('./models');
-
-var app = express();
 
 // Settings
 app.set('port', settings.port);
@@ -32,14 +32,16 @@ if ('development' == app.get('env')) {
 // Routes
 app.get('/', routes.index);
 
+// Socket.IO handlers
+io.sockets.on('connection', handlers.connection);
+
 // Launch
 db.sequelize.sync().complete(function(err){
     if(err)
     {
         throw err;
     } else {
-        var server = app.listen(app.get('port'));
-        io.listen(server);
+        server.listen(app.get('port'));
         console.log('Express server listening on port ' + app.get('port'));
     }
 });
