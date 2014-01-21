@@ -8,11 +8,23 @@ html
         script(src='/javascripts/jquery.mobile-1.4.0.min.js')
         script(src='/socket.io/socket.io.js')
     body
+
+        div(data-role='page', id='page-dialog', data-dialog='true', data-close-link='none')
+            div(data-role='header', data-theme='b')
+                h1 Que voulez-vous boire ?
+                a(href='#page-principale', data-icon='delete', data-iconpos='notext', data-transition='flow') Close
+            div(role='main', class='ui-content')
+                div(class='ui-fied-contain')
+                select(name='select-boisson', id='select-boisson')
+                    option(value='cafe') Un p'tit kawa
+                    option(value='coca') Un coca bien frais
+                a(href='#page-principale', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='flow') OK
+
         div(data-role='page', id='page-principale', class='ui-responsive-panel', data-title= title)
             div(data-role='header')
                 h1= title
                 a(href='#nav-panel', data-icon='bars', data-iconpos='notext') Menu
-                // a(href='#settings-panel', data-icon='gear', data-iconpos='notext') Settings
+                a(href='#page-dialog', data-icon='search', data-iconpos='notext', data-transition='flow') Find
             div(role='main', class='ui-content')
                 block content
             div(data-role='panel', data-display='overlay', id='nav-panel')
