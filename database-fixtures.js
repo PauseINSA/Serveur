@@ -15,12 +15,6 @@ function addBoissonToMachine(boisson, machine)
 
 function addMachineToBatiment(machine, batiment)
 {
-    // var type = 'cafe';
-    // if(machine['boissons'].length != 0)
-    // {
-    //     type = 'canette';
-    // }
-
     db.Machines.create({description: machine['description'], status: true, type: machine['type']}).complete(function(err, mach){
         mach.setBatiment(batiment);
         for(i in machine['boissons'])

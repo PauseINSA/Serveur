@@ -1,4 +1,8 @@
 
+var db = require('../models');
+
 exports.connection = function(socket) {
-    socket.emit('update', 'Hello World');
+    db.Machines.findAll({include: [db.Batiments, db.Boissons]}).success(function(machines){
+        socket.emit('update', machines);
+    });
 };
