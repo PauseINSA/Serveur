@@ -3,6 +3,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var io = require('socket.io');
 var routes = require('./routes');
 var settings = require('./config/settings');
 var db = require('./models');
@@ -37,8 +38,8 @@ db.sequelize.sync().complete(function(err){
     {
         throw err;
     } else {
-        http.createServer(app).listen(app.get('port'), function(){
-          console.log('Express server listening on port ' + app.get('port'));
-        });
+        var server = app.listen(app.get('port'));
+        io.listen(server);
+        console.log('Express server listening on port ' + app.get('port'));
     }
 });
