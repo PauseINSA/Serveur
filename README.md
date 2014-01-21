@@ -6,6 +6,10 @@
 
     npm install
 
+### Créer et remplir la base de données
+
+    node database-fixtures.js
+
 ### Lancer le serveur
   
     node app.js
