@@ -12,19 +12,19 @@ html
         div(data-role='page', id='page-dialog', data-dialog='true', data-close-link='none')
             div(data-role='header', data-theme='b')
                 h1 Que voulez-vous boire ?
-                a(href='#page-principale', data-icon='delete', data-iconpos='notext', data-transition='pop') Close
+                a(href='#page-principale', data-icon='delete', data-iconpos='notext', data-transition='slide') Close
             div(role='main', class='ui-content')
                 div(class='ui-fied-contain')
                 select(name='select-boisson', id='select-boisson')
                     option(value='cafe') Un p'tit kawa
                     option(value='coca') Un coca bien frais
-                a(href='#page-principale', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='pop', id='btn-boisson') OK
+                a(href='#page-principale', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='slide', id='btn-boisson') OK
 
         div(data-role='page', id='page-principale', class='ui-responsive-panel', data-title= title)
             div(data-role='header')
                 h1= title
                 a(href='#nav-panel', data-icon='bars', data-iconpos='notext') Menu
-                a(href='#page-dialog', data-icon='search', data-iconpos='notext', data-transition='pop') Find
+                a(href='#page-dialog', data-icon='search', data-iconpos='notext', data-transition='slide') Find
             div(role='main', class='ui-content')
                 ul(data-role='listview', id='liste-machine')
             div(data-role='panel', data-display='overlay', id='nav-panel')

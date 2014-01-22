@@ -7,6 +7,10 @@ var socket = io.connect();
  */
 socket.on('updateAll', function(data){
     machines = data;
+    // par defaut on affiche toutes les machines
+    $.each(machines, function(){
+        addMachine(this);
+    });
 });
 
 /*
@@ -45,5 +49,22 @@ $(".menu-trier").click(function(){
 
 function addMachine(machine)
 {
-    $("#liste-machine").append("<li><a href=\"#\">"+machine.batiment['nom']+" - "+machine.description+"</a></li>");
+    $("#liste-machine").append("<li><a href=\"#\"><img src=\"/images/"+getPointMachine(machine)+"-point.png\" class=\"ui-li-icon\"/>"+machine.batiment['nom']+" - "+machine.description+"</a></li>");
+}
+
+function getPointMachine(machine)
+{
+    if(machine.status != true)
+    {
+        return "red";
+    } else if(machine.type == 'canette') {
+        for(i in machine.boissons)
+        {
+            if(machine.boissons[i].status == false)
+            {
+                return "orange";
+            }
+        }
+    }
+    return "green";
 }
