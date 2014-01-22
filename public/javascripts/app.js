@@ -2,10 +2,48 @@
 var machines = {};
 var socket = io.connect();
 
-socket.on('update', function(data){
+/*
+ * Lorsque l'on reçoit une mise à jour
+ */
+socket.on('updateAll', function(data){
     machines = data;
 });
 
+/*
+ * Lorsque l'utilisateur choisis une boisson
+ */
+$("#btn-boisson").click(function(){
+    var boisson = $("#select-boisson").val();
+    // on vide la liste courrante
+    $("#liste-machine").empty();
+    // on itère sur chaque machine
+    $.each(machines, function(){
+        // on a choisi un café, que la machine courrante est une cafetière et qu'elle marche, on ajoute dans la liste
+        if(boisson == 'cafe' && this.type == 'cafe' && this.status == true)
+        {
+            addMachine(this);
+        // une autre boisson et la machine vend des canettes
+        } else if (boisson != 'cafe' && this.type == 'canette'){
+            for(i in this.boissons) // pour chaque boisson dans la machine
+            {
+                if(this.boissons[i].nom.toLowerCase() == boisson && this.boissons[i].status == true) // la boisson est dispo
+                {
+                    addMachine(this); // on ajoute à la liste
+                }
+            }
+        }
+    });
+    $("#liste-machine").listview('refresh');
+});
+
+/*
+ * Pour traiter les demandes spécifiques de l'utilisateur (menu de droite)
+ */
 $(".menu-trier").click(function(){
     
 });
+
+function addMachine(machine)
+{
+    $("#liste-machine").append("<li><a href=\"#\">"+machine.batiment['nom']+" - "+machine.description+"</a></li>");
+}

@@ -18,7 +18,7 @@ html
                 select(name='select-boisson', id='select-boisson')
                     option(value='cafe') Un p'tit kawa
                     option(value='coca') Un coca bien frais
-                a(href='#page-principale', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='flow') OK
+                a(href='#page-principale', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='flow', id='btn-boisson') OK
 
         div(data-role='page', id='page-principale', class='ui-responsive-panel', data-title= title)
             div(data-role='header')
@@ -26,7 +26,7 @@ html
                 a(href='#nav-panel', data-icon='bars', data-iconpos='notext') Menu
                 a(href='#page-dialog', data-icon='search', data-iconpos='notext', data-transition='flow') Find
             div(role='main', class='ui-content')
-                block content
+                ul(data-role='listview', id='liste-machine')
             div(data-role='panel', data-display='overlay', id='nav-panel')
                 include includes/menu.jade
         script(src='/javascripts/app.js')
