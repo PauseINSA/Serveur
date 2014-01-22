@@ -8,9 +8,11 @@ var socket = io.connect();
 socket.on('updateAll', function(data){
     machines = data;
     // par defaut on affiche toutes les machines
+    $("#liste-machine").empty();
     $.each(machines, function(){
         addMachine(this);
     });
+    $("#liste-machine").listview('refresh');
 });
 
 /*
@@ -47,11 +49,19 @@ $(".menu-trier").click(function(){
     
 });
 
+/*
+ * Ajouter une machine à la liste
+ */
 function addMachine(machine)
 {
-    $("#liste-machine").append("<li><a href=\"#\"><img src=\"/images/"+getPointMachine(machine)+"-point.png\" class=\"ui-li-icon\"/>"+machine.batiment['nom']+" - "+machine.description+"</a></li>");
+    $("#liste-machine").append("<li>"+
+            "<a href=\"#page-infos\" data-transition=\"slide\"><img src=\"/images/"+getPointMachine(machine)+"-point.png\" class=\"ui-li-icon\"/>"+machine.batiment['nom']+" - "+machine.description+"</a>" +
+        "</li>");
 }
 
+/*
+ * Renvoie la couleur du point à afficher devant la machine
+ */
 function getPointMachine(machine)
 {
     if(machine.status != true)

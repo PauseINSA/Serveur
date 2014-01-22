@@ -9,17 +9,6 @@ html
         script(src='/socket.io/socket.io.js')
     body
 
-        div(data-role='page', id='page-dialog', data-dialog='true', data-close-link='none')
-            div(data-role='header', data-theme='b')
-                h1 Que voulez-vous boire ?
-                a(href='#page-principale', data-icon='delete', data-iconpos='notext', data-transition='slide') Close
-            div(role='main', class='ui-content')
-                div(class='ui-fied-contain')
-                select(name='select-boisson', id='select-boisson')
-                    option(value='cafe') Un p'tit kawa
-                    option(value='coca') Un coca bien frais
-                a(href='#page-principale', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='slide', id='btn-boisson') OK
-
         div(data-role='page', id='page-principale', class='ui-responsive-panel', data-title= title)
             div(data-role='header')
                 h1= title
@@ -29,4 +18,20 @@ html
                 ul(data-role='listview', id='liste-machine')
             div(data-role='panel', data-display='overlay', id='nav-panel')
                 include includes/menu.jade
+
+        div(data-role='page', id='page-dialog', data-dialog='true')
+            div(data-role='header', data-theme='b')
+                h1 Que voulez-vous boire ?
+            div(role='main', class='ui-content')
+                select(name='select-boisson', id='select-boisson')
+                    option(value='cafe') Un p'tit kawa
+                    option(value='coca') Un coca bien frais
+                a(data-rel='back', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='slide', id='btn-boisson') OK
+
+        div(data-role='page', id='page-infos', data-dialog='true')
+            div(data-role='header', data-theme='b')
+                h1 Machine X
+            div(role='main', class='ui-content')
+                p infos concernant la machine
+
         script(src='/javascripts/app.js')
