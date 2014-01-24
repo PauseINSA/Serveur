@@ -3,16 +3,11 @@ var machines = {};
 var socket = io.connect();
 
 /*
- * Lorsque l'on reçoit une mise à jour
+ * Lorsque l'on reçoit les données initiales à la connexion
  */
 socket.on('updateAll', function(data){
     machines = data;
-    // par defaut on affiche toutes les machines
-    $("#liste-machine").empty();
-    $.each(machines, function(){
-        addMachineByBatiment(this);
-    });
-    $("#liste-machine").listview('refresh');
+    displayMachinesByBatiment();
 });
 
 /*
@@ -43,11 +38,23 @@ $("#btn-boisson").click(function(){
 });
 
 /*
- * Pour traiter les demandes spécifiques de l'utilisateur (menu de droite)
+ * Demande d'affichage de toutes les machines
  */
-$(".menu-trier").click(function(){
-    
+$("#menu-display-batiment").click(function(){
+    displayMachinesByBatiment();
 });
+
+/*
+ * Afficher toutes les machines en triant par bâtiment
+ */
+function displayMachinesByBatiment()
+{
+    $("#liste-machine").empty();
+    $.each(machines, function(){
+        addMachineByBatiment(this);
+    });
+    $("#liste-machine").listview('refresh');
+}
 
 /*
  * Ajouter une machine à la liste en mettant les batiments comme séparateur
