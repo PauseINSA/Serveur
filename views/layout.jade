@@ -13,20 +13,12 @@ html
             div(data-role='header')
                 h1= title
                 a(href='#nav-panel', data-icon='bars', data-iconpos='notext') Menu
-                a(href='#page-dialog', data-icon='search', data-iconpos='notext', data-transition='slide') Find
+                a(href='#search-popup', data-icon='search', data-iconpos='notext', data-transition='pop', data-rel='popup', data-position-to='window') Find
             div(role='main', class='ui-content')
-                ul(data-role='listview', id='liste-machine')
+                include includes/popup-select.jade
+                ul(data-role='listview', id='liste-machine', data-divider-theme='b')
             div(data-role='panel', data-display='overlay', id='nav-panel')
                 include includes/menu.jade
-
-        div(data-role='page', id='page-dialog', data-dialog='true')
-            div(data-role='header', data-theme='b')
-                h1 Que voulez-vous boire ?
-            div(role='main', class='ui-content')
-                select(name='select-boisson', id='select-boisson')
-                    option(value='cafe') Un p'tit kawa
-                    option(value='coca') Un coca bien frais
-                a(data-rel='back', data-theme='b', class='ui-shadow ui-btn ui-corner-all ui-btn-b', data-transition='slide', id='btn-boisson') OK
 
         div(data-role='page', id='page-infos', data-dialog='true')
             div(data-role='header', data-theme='b')

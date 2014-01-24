@@ -10,7 +10,7 @@ socket.on('updateAll', function(data){
     // par defaut on affiche toutes les machines
     $("#liste-machine").empty();
     $.each(machines, function(){
-        addMachine(this);
+        addMachineByBatiment(this);
     });
     $("#liste-machine").listview('refresh');
 });
@@ -27,14 +27,14 @@ $("#btn-boisson").click(function(){
         // on a choisi un café, que la machine courrante est une cafetière et qu'elle marche, on ajoute dans la liste
         if(boisson == 'cafe' && this.type == 'cafe' && this.status == true)
         {
-            addMachine(this);
+            addMachineByBatiment(this);
         // une autre boisson et la machine vend des canettes
         } else if (boisson != 'cafe' && this.type == 'canette'){
             for(i in this.boissons) // pour chaque boisson dans la machine
             {
                 if(this.boissons[i].nom.toLowerCase() == boisson && this.boissons[i].status == true) // la boisson est dispo
                 {
-                    addMachine(this); // on ajoute à la liste
+                    addMachineByBatiment(this); // on ajoute à la liste
                 }
             }
         }
@@ -50,13 +50,22 @@ $(".menu-trier").click(function(){
 });
 
 /*
- * Ajouter une machine à la liste
+ * Ajouter une machine à la liste en mettant les batiments comme séparateur
  */
-function addMachine(machine)
+function addMachineByBatiment(machine)
 {
-    $("#liste-machine").append("<li>"+
-            "<a href=\"#page-infos\" data-transition=\"slide\"><img src=\"/images/"+getPointMachine(machine)+"-point.png\" class=\"ui-li-icon\"/>"+machine.batiment['nom']+" - "+machine.description+"</a>" +
-        "</li>");
+    // si le séparateur existe pas, on le créé
+    if($("li#bat-"+machine.batiment['id']).length == 0)
+    {
+        $("<li data-role=\"list-divider\" id=\"bat-"+machine.batiment['id']+"\">"+machine.batiment['nom']+"</ul>").appendTo("#liste-machine");
+    }
+
+    // on ajoute la machine juste après le bon séparateur
+    $("<li>"+
+            "<a href=\"#page-infos\" data-transition=\"slide\">"+
+                "<img src=\"/images/"+getPointMachine(machine)+"-point.png\" class=\"ui-li-icon\"/>"+machine.description+
+            "</a>" +
+      "</li>").insertAfter("li#bat-"+machine.batiment['id'])
 }
 
 /*
