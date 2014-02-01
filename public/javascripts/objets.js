@@ -36,6 +36,7 @@
     /*
      * Affiche les machines dans la listview
      * Si batname == true, alors le nom du batiment est aussi affiché
+     * Si data n'est pas spécifié, on affiche toutes les machines
      */
     this.loadHtml = function(batname,data)
     {
@@ -78,14 +79,17 @@
      */
     this.displayByBoisson = function(boisson)
     {
+        // on construit la liste des machines a afficher
         var machs = [];
         for(i in this.machines)
         {
-            if(this.machines[i].hasBoisson(boisson))
+            var mach = this.machines[i];
+            if(mach.hasBoisson(boisson))
             {
-                machs.push(this.machines[i]);
+                machs.push(mach);
             }
         }
+
         this.loadHtml(batname=false, data=machs);
         this.listview.listview({autodividersSelector: this.dividerBatiment});
         this.listview.listview('refresh');
@@ -106,8 +110,8 @@
      */
     this.sortBatiment = function(a, b)
     {
-        var batA = machines.getMachineById($(a).attr('id')).batiment.nom;
-        var batB = machines.getMachineById($(b).attr('id')).batiment.nom;
+        var batA = a.batiment.nom;
+        var batB = b.batiment.nom;
 
         if(batA > batB)
         {
@@ -142,8 +146,8 @@
      */
     this.sortType = function(a, b)
     {
-        var typeA = machines.getMachineById($(a).attr('id')).type;
-        var typeB = machines.getMachineById($(b).attr('id')).type;
+        var typeA = a.type;
+        var typeB = b.type;
 
         if(typeA > typeB)
         {
@@ -224,10 +228,8 @@ function Machine(json)
      */
     this.hasBoisson = function(boisson)
     {
-        if(this.type == boisson && this.status == true) // cafe
+        if(this.type == 'canette' && this.status == true)
         {
-            return true;
-        } else {
             for(i in this.boissons)
             {
                 if(this.boissons[i].nom.toLowerCase() == boisson && this.boissons[i].status == true)
@@ -235,6 +237,9 @@ function Machine(json)
                     return true;
                 }
             }
+        } else if (boisson == 'cafe' && this.type == 'cafe' && this.status == true)
+        {
+            return true;
         }
         return false;
     }
