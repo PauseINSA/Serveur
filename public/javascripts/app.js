@@ -40,3 +40,7 @@ $("#menu-display-batiment").click(function(){
 $("#menu-display-type").click(function(){
     machines.displayByType();
 });
+
+$("#menu-display-about").click(function(){
+	$("#nav-panel").panel('close');
+});
